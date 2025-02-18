@@ -1,0 +1,15 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: #d7e4ff;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}

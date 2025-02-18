@@ -1,0 +1,45 @@
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.filters-container {
+  margin-bottom: 1.5rem;
+
+  .additional-filters {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    mat-form-field {
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-actions {
+  width: 160px;
+  text-align: right;
+}
+
+.mat-column-moyenneGenerale,
+.mat-column-rang {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-trimestre {
+  width: 120px;
+}
+
+.mat-column-dateGeneration {
+  width: 120px;
+}

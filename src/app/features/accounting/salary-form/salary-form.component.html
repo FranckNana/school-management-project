@@ -1,0 +1,69 @@
+<div class="page-header">
+  <h1>Paiement de salaire</h1>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="salaryForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Employé</mat-label>
+            <input matInput formControlName="employe">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Poste</mat-label>
+            <mat-select formControlName="poste">
+              <mat-option value="Enseignant">Enseignant</mat-option>
+              <mat-option value="Secrétaire">Secrétaire</mat-option>
+              <mat-option value="Vigile">Vigile</mat-option>
+              <mat-option value="Comptable">Comptable</mat-option>
+              <mat-option value="Directeur">Directeur</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Montant</mat-label>
+            <input matInput type="number" formControlName="montant">
+            <span matSuffix>FCFA</span>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Mois</mat-label>
+            <mat-select formControlName="mois">
+              <mat-option value="Janvier 2024">Janvier 2024</mat-option>
+              <mat-option value="Février 2024">Février 2024</mat-option>
+              <mat-option value="Mars 2024">Mars 2024</mat-option>
+              <mat-option value="Avril 2024">Avril 2024</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button mat-button type="button" (click)="cancel()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!salaryForm.valid">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

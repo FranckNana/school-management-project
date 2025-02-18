@@ -1,0 +1,84 @@
+<div class="page-header">
+  <h1>{{isEditMode ? 'Modifier' : 'Générer'}} un bulletin</h1>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="bulletinForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Élève</mat-label>
+          <mat-select formControlName="eleveId">
+            <mat-option *ngFor="let student of students" [value]="student.id">
+              {{student.nom}} {{student.prenom}} - {{student.classe}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Trimestre</mat-label>
+          <mat-select formControlName="trimestre">
+            <mat-option *ngFor="let trimestre of trimestres" [value]="trimestre">
+              {{trimestre}}er trimestre
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Année scolaire</mat-label>
+          <input matInput formControlName="annee" type="number">
+        </mat-form-field>
+      </div>
+
+      <div formArrayName="notes" class="notes-container">
+        <h3>Notes par matière</h3>
+        
+        <div *ngFor="let noteControl of notesArray.controls; let i = index" 
+             [formGroupName]="i" 
+             class="note-item">
+          <div class="note-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Matière</mat-label>
+              <input matInput formControlName="matiere" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Note</mat-label>
+              <input matInput type="number" formControlName="note" min="0" max="20" step="0.5">
+              <span matSuffix>/20</span>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Coefficient</mat-label>
+              <input matInput type="number" formControlName="coefficient" min="1">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Appréciation</mat-label>
+            <textarea matInput formControlName="appreciation" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Appréciation générale</mat-label>
+        <textarea matInput formControlName="appreciation" rows="3"></textarea>
+      </mat-form-field>
+
+      <div class="moyenne-container">
+        <h3>Moyenne générale: {{calculateMoyenne() | number:'1.2-2'}}/20</h3>
+      </div>
+
+      <div class="form-actions">
+        <button mat-button type="button" (click)="cancel()" [disabled]="isLoading">
+          Annuler
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || !bulletinForm.valid">
+          <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+          <span *ngIf="!isLoading">{{isEditMode ? 'Modifier' : 'Générer'}}</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

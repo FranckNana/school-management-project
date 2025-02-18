@@ -1,0 +1,68 @@
+<div class="page-header">
+  <h1>{{isEditMode ? 'Modifier' : 'Ajouter'}} un élève</h1>
+</div>
+
+<mat-card class="form-card">
+  <mat-card-content>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="nom" placeholder="Ex: Sawadogo">
+          <mat-error>{{getErrorMessage('nom')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prénom</mat-label>
+          <input matInput formControlName="prenom" placeholder="Ex: Fatima">
+          <mat-error>{{getErrorMessage('prenom')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date de naissance</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateNaissance">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>{{getErrorMessage('dateNaissance')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Classe</mat-label>
+          <mat-select formControlName="classe">
+            <mat-option *ngFor="let classe of classes" [value]="classe">
+              {{classe}}
+            </mat-option>
+          </mat-select>
+          <mat-error>{{getErrorMessage('classe')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nom du parent</mat-label>
+          <input matInput formControlName="nomParent" placeholder="Ex: Sawadogo Issouf">
+          <mat-error>{{getErrorMessage('nomParent')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Téléphone du parent</mat-label>
+          <input matInput formControlName="telephoneParent" placeholder="Ex: 70123456">
+          <mat-hint>Format: 8 chiffres sans espaces</mat-hint>
+          <mat-error>{{getErrorMessage('telephoneParent')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Adresse</mat-label>
+          <textarea matInput formControlName="adresse" rows="3" placeholder="Ex: Ouagadougou, Secteur 25"></textarea>
+          <mat-error>{{getErrorMessage('adresse')}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button mat-button type="button" (click)="cancel()" [disabled]="isLoading">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+          <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+          <span *ngIf="!isLoading">{{isEditMode ? 'Modifier' : 'Ajouter'}}</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

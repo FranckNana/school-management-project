@@ -1,0 +1,115 @@
+<div class="page-header">
+  <h1>Comptabilité</h1>
+  <div class="d-flex gap-2">
+    <button mat-raised-button color="primary" (click)="addPayment()">
+      <mat-icon>payment</mat-icon>
+      Nouveau paiement
+    </button>
+    <button mat-raised-button color="accent" (click)="addSalary()">
+      <mat-icon>account_balance_wallet</mat-icon>
+      Paiement salaire
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="primary">account_balance</mat-icon>
+          Solde
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>15,750,000 FCFA</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="accent">trending_up</mat-icon>
+          Recettes du mois
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>2,500,000 FCFA</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="warn">trending_down</mat-icon>
+          Dépenses du mois
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>1,800,000 FCFA</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<mat-card class="mt-4">
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Paiements récents">
+        <table mat-table [dataSource]="recentPayments" class="w-100 mt-3">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{element.date | date}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="eleve">
+            <th mat-header-cell *matHeaderCellDef>Élève</th>
+            <td mat-cell *matCellDef="let element">{{element.eleve}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="montant">
+            <th mat-header-cell *matHeaderCellDef>Montant</th>
+            <td mat-cell *matCellDef="let element">{{element.montant | number}} FCFA</td>
+          </ng-container>
+
+          <ng-container matColumnDef="motif">
+            <th mat-header-cell *matHeaderCellDef>Motif</th>
+            <td mat-cell *matCellDef="let element">{{element.motif}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['date', 'eleve', 'montant', 'motif']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['date', 'eleve', 'montant', 'motif'];"></tr>
+        </table>
+      </mat-tab>
+
+      <mat-tab label="Salaires récents">
+        <table mat-table [dataSource]="recentSalaries" class="w-100 mt-3">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{element.date | date}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="employe">
+            <th mat-header-cell *matHeaderCellDef>Employé</th>
+            <td mat-cell *matCellDef="let element">{{element.employe}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="montant">
+            <th mat-header-cell *matHeaderCellDef>Montant</th>
+            <td mat-cell *matCellDef="let element">{{element.montant | number}} FCFA</td>
+          </ng-container>
+
+          <ng-container matColumnDef="mois">
+            <th mat-header-cell *matHeaderCellDef>Mois</th>
+            <td mat-cell *matCellDef="let element">{{element.mois}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['date', 'employe', 'montant', 'mois']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['date', 'employe', 'montant', 'mois'];"></tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

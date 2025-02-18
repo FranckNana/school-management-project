@@ -1,0 +1,54 @@
+<div class="login-container">
+  <div class="login-content">
+    <div class="login-header">
+      <img src="assets/logo-college.png" alt="Logo" class="login-logo">
+      <h1>Gestion du Collège</h1>
+      <p class="subtitle">Connectez-vous pour accéder à votre espace</p>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-field">
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Email</mat-label> -->
+              <mat-icon matPrefix>email</mat-icon>
+              <input matInput formControlName="email" type="email" placeholder="exemple@college.bf">
+              <mat-error *ngIf="loginForm.get('email')?.invalid">
+                {{getErrorMessage('email')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <mat-form-field appearance="outline">
+              <!-- <mat-label>Mot de passe</mat-label> -->
+              <mat-icon matPrefix>lock</mat-icon>
+              <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('password')?.invalid">
+                {{getErrorMessage('password')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="login-button">
+              <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+              <span *ngIf="!isLoading">
+                <mat-icon>login</mat-icon>
+                Se connecter
+              </span>
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="login-footer">
+      <p>© {{ copyRightDate }} Gestion du Collège. Tous droits réservés.</p>
+    </div>
+  </div>
+</div>

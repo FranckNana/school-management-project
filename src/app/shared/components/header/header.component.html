@@ -1,0 +1,41 @@
+<header class="header">
+  <div class="header-content">
+    <div class="header-brand">
+      <img src="assets/logo-college.png" alt="Logo" class="header-logo">
+      <h1 class="header-title">Collège Manager</h1>
+    </div>
+
+    <nav class="header-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-text">Tableau de bord</span>
+      </a>
+      <a routerLink="/personnel" routerLinkActive="active" class="nav-link">
+        <mat-icon>people</mat-icon>
+        <span class="nav-text">Personnel</span>
+      </a>
+      <a routerLink="/students" routerLinkActive="active" class="nav-link">
+        <mat-icon>school</mat-icon>
+        <span class="nav-text">Élèves</span>
+      </a>
+      <a routerLink="/schedule" routerLinkActive="active" class="nav-link">
+        <mat-icon>schedule</mat-icon>
+        <span class="nav-text">Emplois du temps</span>
+      </a>
+      <a routerLink="/accounting" routerLinkActive="active" class="nav-link">
+        <mat-icon>account_balance</mat-icon>
+        <span class="nav-text">Comptabilité</span>
+      </a>
+      <a routerLink="/bulletins" routerLinkActive="active" class="nav-link">
+        <mat-icon>assessment</mat-icon>
+        <span class="nav-text">Bulletins</span>
+      </a>
+
+      <a *ngIf="isAuthenticated" routerLinkActive="active" class="nav-link" (click)="logout()" style="cursor: pointer; ">
+        <mat-icon>exit_to_app</mat-icon>
+        <span class="nav-text">Deconnexion</span>
+      </a>
+    </nav>
+
+  </div>
+</header>

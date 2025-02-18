@@ -1,0 +1,67 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.notes-container {
+  margin-bottom: 2rem;
+
+  h3 {
+    color: #4f46e5;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.note-item {
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e5e7eb;
+
+  .note-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.moyenne-container {
+  background: #eef2ff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
+
+  h3 {
+    color: #4f46e5;
+    margin: 0;
+    font-size: 1.25rem;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    min-width: 120px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}

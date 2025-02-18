@@ -1,0 +1,111 @@
+<div class="page-header">
+  <h1>Gestion du Personnel</h1>
+  <button mat-raised-button color="primary" (click)="addPersonnel()">
+    <mat-icon>add</mat-icon>
+    Ajouter un membre
+  </button>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <div class="filters-container">
+      <div class="row">
+        <div class="col-md-12">
+          <app-search-filter 
+            placeholder="Rechercher un membre du personnel..."
+            (search)="applyFilter($event)">
+          </app-search-filter>
+        </div>
+      </div>
+
+      <div class="additional-filters">
+        <mat-form-field>
+          <mat-label>Filtrer par poste</mat-label>
+          <mat-select [(value)]="selectedPoste" (selectionChange)="applyFilters()">
+            <mat-option>Tous</mat-option>
+            <mat-option *ngFor="let poste of postes" [value]="poste">
+              {{poste}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="selectedPoste === 'Enseignant'">
+          <mat-label>Filtrer par matière</mat-label>
+          <mat-select [(value)]="selectedMatiere" (selectionChange)="applyFilters()">
+            <mat-option>Toutes</mat-option>
+            <mat-option *ngFor="let matiere of matieres" [value]="matiere">
+              {{matiere}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Trier par salaire</mat-label>
+          <mat-select [(value)]="salarySort" (selectionChange)="applySalarySort()">
+            <mat-option value="">Par défaut</mat-option>
+            <mat-option value="asc">Croissant</mat-option>
+            <mat-option value="desc">Décroissant</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort class="w-100">
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+          <td mat-cell *matCellDef="let element" data-label="Nom">{{element.nom}} {{element.prenom}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="poste">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Poste</th>
+          <td mat-cell *matCellDef="let element" data-label="Poste">{{element.poste}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+          <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+          <td mat-cell *matCellDef="let element" data-label="Téléphone">{{element.telephone}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let element" data-label="Email">{{element.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="salaire">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Salaire</th>
+          <td mat-cell *matCellDef="let element" data-label="Salaire">{{element.salaire | number}} FCFA</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element" data-label="Actions">
+            <div class="action-buttons">
+              <button mat-icon-button color="accent" (click)="editPersonnel(element)" matTooltip="Modifier">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deletePersonnel(element)" matTooltip="Supprimer">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">
+            Aucun membre du personnel trouvé
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <mat-paginator 
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [pageSize]="10"
+      showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

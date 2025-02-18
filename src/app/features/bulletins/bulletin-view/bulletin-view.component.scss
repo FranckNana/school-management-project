@@ -1,0 +1,112 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.bulletin-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.student-info {
+  margin-bottom: 2rem;
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .info-item {
+      label {
+        font-weight: 500;
+        color: #4b5563;
+        margin-right: 0.5rem;
+      }
+
+      span {
+        color: #1f2937;
+      }
+    }
+  }
+}
+
+.notes-card {
+  margin-bottom: 2rem;
+
+  table {
+    width: 100%;
+  }
+
+  .mat-column-matiere {
+    width: 25%;
+  }
+
+  .mat-column-note,
+  .mat-column-coefficient {
+    width: 15%;
+    text-align: center;
+  }
+
+  .mat-column-appreciation {
+    width: 45%;
+  }
+}
+
+.summary-card {
+  margin-bottom: 2rem;
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .summary-item {
+      label {
+        font-weight: 500;
+        color: #4b5563;
+        margin-right: 0.5rem;
+      }
+
+      .moyenne {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #4f46e5;
+      }
+    }
+  }
+
+  .appreciation-container {
+    h3 {
+      color: #4b5563;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #1f2937;
+      line-height: 1.6;
+    }
+  }
+}
+
+.actions-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
