@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -9,7 +9,7 @@ import { ErrorService } from '../../../core/services/error.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy{
   loginForm: FormGroup;
   hidePassword = true;
   isLoading = false;
@@ -58,5 +58,15 @@ export class LoginComponent {
       return 'Le mot de passe doit contenir au moins 6 caractères';
     }
     return '';
+  }
+
+  ngOnInit(): void {
+    // Désactiver le défilement
+    document.body.style.overflow = 'hidden';
+  }
+
+  ngOnDestroy(): void {
+    // Réactiver le défilement
+    document.body.style.overflow = '';
   }
 }

@@ -379,3 +379,17 @@
     margin-bottom: 1rem;
   }
 }
+
+.dash-container {
+  overflow-x: auto; /* Permet le scroll horizontal */
+  margin: 0 -16px;
+  padding: 0 16px;
+
+  /* Rendre la barre de scroll invisible */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+.dash-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari et Edge */
+}

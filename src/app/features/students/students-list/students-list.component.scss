@@ -8,3 +8,9 @@
 table {
   width: 100%;
 }
+
+.table-container {
+  overflow-x: auto; /* Permet le scroll horizontal */
+  margin: 0 -16px;
+  padding: 0 16px;
+}

@@ -43,3 +43,9 @@ table {
 .mat-column-dateGeneration {
   width: 120px;
 }
+
+.table-container {
+  overflow-x: auto; /* Permet le scroll horizontal */
+  margin: 0 -16px;
+  padding: 0 16px;
+}

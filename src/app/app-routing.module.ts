@@ -5,10 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login/login.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { LoginGuard } from './core/guards/login.guard';
 
 const routes: Routes = [
   { 
-    path: 'login', component: LoginComponent 
+    path: 'login', component: LoginComponent, canActivate: [LoginGuard]
   },
   { 
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]
@@ -29,7 +30,7 @@ const routes: Routes = [
     path: 'bulletins', loadChildren : ()=> import('./features/bulletins/bulletin-routing.modules').then(m => m.BulletinRoutingModule) 
   },
   { 
-    path: '', component: DashboardComponent
+    path: '**', redirectTo: 'login'
   }
 ];
 

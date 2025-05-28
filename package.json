@@ -1,11 +1,12 @@
 {
-  "name": "college-management",
+  "name": "school-management",
   "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "dev": "ng serve"
+    "dev": "ng serve",
+    "deploy": "ng build && firebase deploy"
   },
   "dependencies": {
     "@angular/animations": "^17.2.3",

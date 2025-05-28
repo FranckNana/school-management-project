@@ -176,3 +176,17 @@
   position: fixed !important;
   z-index: 1100 !important;
 }
+
+.nav-container {
+  overflow-x: auto; /* Permet le scroll horizontal */
+  margin: 0 -16px;
+  padding: 0 16px;
+
+  /* Rendre la barre de scroll invisible */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+.nav-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari et Edge */
+}

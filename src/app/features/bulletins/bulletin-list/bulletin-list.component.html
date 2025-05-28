@@ -41,64 +41,66 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" matSort class="w-100">
-      <ng-container matColumnDef="nomEleve">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Élève</th>
-        <td mat-cell *matCellDef="let element">{{element.nomEleve}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="classe">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Classe</th>
-        <td mat-cell *matCellDef="let element">{{element.classe}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="trimestre">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Trimestre</th>
-        <td mat-cell *matCellDef="let element">{{element.trimestre}}er trimestre</td>
-      </ng-container>
-
-      <ng-container matColumnDef="moyenneGenerale">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Moyenne</th>
-        <td mat-cell *matCellDef="let element">{{element.moyenneGenerale | number:'1.2-2'}}/20</td>
-      </ng-container>
-
-      <ng-container matColumnDef="rang">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rang</th>
-        <td mat-cell *matCellDef="let element">{{element.rang}}e</td>
-      </ng-container>
-
-      <ng-container matColumnDef="dateGeneration">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell *matCellDef="let element">{{element.dateGeneration | date}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="viewBulletin(element)" matTooltip="Voir">
-            <mat-icon>visibility</mat-icon>
-          </button>
-          <button mat-icon-button color="accent" (click)="editBulletin(element)" matTooltip="Modifier">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteBulletin(element)" matTooltip="Supprimer">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button (click)="downloadPDF(element)" matTooltip="Télécharger PDF">
-            <mat-icon>download</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="7">
-          Aucun bulletin trouvé
-        </td>
-      </tr>
-    </table>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="w-100">
+        <ng-container matColumnDef="nomEleve">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Élève</th>
+          <td mat-cell *matCellDef="let element">{{element.nomEleve}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="classe">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Classe</th>
+          <td mat-cell *matCellDef="let element">{{element.classe}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="trimestre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Trimestre</th>
+          <td mat-cell *matCellDef="let element">{{element.trimestre}}er trimestre</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="moyenneGenerale">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Moyenne</th>
+          <td mat-cell *matCellDef="let element">{{element.moyenneGenerale | number:'1.2-2'}}/20</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="rang">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rang</th>
+          <td mat-cell *matCellDef="let element">{{element.rang}}e</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="dateGeneration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let element">{{element.dateGeneration | date}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="viewBulletin(element)" matTooltip="Voir">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="editBulletin(element)" matTooltip="Modifier">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteBulletin(element)" matTooltip="Supprimer">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="downloadPDF(element)" matTooltip="Télécharger PDF">
+              <mat-icon>download</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="7">
+            Aucun bulletin trouvé
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <mat-paginator 
       [pageSizeOptions]="[5, 10, 25, 100]"

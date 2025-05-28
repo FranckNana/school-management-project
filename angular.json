@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "school-management": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -26,10 +26,12 @@
             }
           },
           "options": {
-            "assets": [],
+            "assets": [
+              "src/assets"
+            ],
             "index": "src/index.html",
             "main": "src/main.ts",
-            "outputPath": "dist/demo",
+            "outputPath": "dist/school-management",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": [
@@ -44,10 +46,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "demo:build:development"
+              "buildTarget": "school-management:build:development"
             },
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "school-management:build:production"
             }
           },
           "defaultConfiguration": "development"
