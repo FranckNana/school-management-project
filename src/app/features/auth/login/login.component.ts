@@ -31,20 +31,25 @@ export class LoginComponent implements OnInit, OnDestroy{
     if (this.loginForm.valid) {
       this.isLoading = true;
       const { email, password } = this.loginForm.value;
-      this.authService.login(email, password).subscribe({
-        next: () => {
-          this.isLoading = false;
-          this.router.navigate(['/dashboard']);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.errorService.handleError(error);
-        }
+      this.authService.login(email, password)
+      .then(() => {
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']);
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.errorService.handleError(error);
       });
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
+
+  logout(): void {
+
+  }
+
+
 
   getErrorMessage(controlName: string): string {
     const control = this.loginForm.get(controlName);

@@ -30,7 +30,10 @@ const routes: Routes = [
     path: 'bulletins', loadChildren : ()=> import('./features/bulletins/bulletin-routing.modules').then(m => m.BulletinRoutingModule) 
   },
   { 
-    path: '**', redirectTo: 'login'
+    path: '', redirectTo: 'login', pathMatch: 'full' 
+  },
+  { 
+    path: '**', redirectTo: 'login' 
   }
 ];
 

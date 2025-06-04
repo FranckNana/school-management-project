@@ -1,52 +1,74 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { User } from '../../shared/interfaces/user.interface';
+import { BehaviorSubject} from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<firebase.User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+  currentUser: firebase.User | null = null;
 
-  constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser));
-    }
+  constructor(private auth: AngularFireAuth) {
+     this.auth.authState.subscribe((user) => {
+      this.currentUserSubject.next(user);
+
+      if (user) {
+        const userData = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        };
+
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        console.log('Utilisateur connecté !');
+      }else {
+        localStorage.removeItem('currentUser');
+        console.log('Aucun utilisateur connecté.');
+      }
+    });
+
   }
 
-  login(email: string, password: string): Observable<User> {
-    // Pour le développement, on simule une connexion réussie
-    const mockUser: User = {
-      id: 1,
-      email: email,
-      nom: 'Admin',
-      prenom: 'System',
-      role: 'admin',
-      token: 'mock-jwt-token'
-    };
+  login(email: string, password: string): Promise<void> {
+    return this.auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        this.currentUser = userCredential.user;
 
-    return of(mockUser).pipe(
-      tap(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        const userData = {
+          uid: this.currentUser?.uid,
+          email: this.currentUser?.email,
+          displayName: this.currentUser?.displayName,
+        };
+
+        this.currentUserSubject.next(this.currentUser);
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        console.log('Utilisateur connecté !');
       })
-    );
+      .catch((error) => {
+        console.error('Erreur de connexion :', error);
+        throw error;
+      });
   }
 
-  logout(): void {
+  logout(){
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    return this.auth.signOut();
   }
 
   isAuthenticated(): boolean {
     return !!this.currentUserSubject.value;
   }
 
-  getCurrentUser(): User | null {
+  getCurrentUser(){
     return this.currentUserSubject.value;
+  }
+
+  async getToken(): Promise<string | null> {
+    if (!this.currentUser) return null;
+    return await this.currentUser.getIdToken();
   }
 }

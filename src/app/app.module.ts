@@ -8,6 +8,11 @@ import { SharedModule } from './shared/shared.module';
 import { FeaturesModule } from './features/features.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +23,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    FeaturesModule
+    FeaturesModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [
     provideAnimationsAsync()
