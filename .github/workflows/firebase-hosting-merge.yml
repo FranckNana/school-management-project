@@ -18,6 +18,7 @@ jobs:
       - name: Generate environment.prod.ts from template
         run: |
           mkdir -p src/environments
+          envsubst < src/environments/environment.tmp.ts > src/environments/environment.ts
           envsubst < src/environments/environment.prod.template.ts > src/environments/environment.prod.ts
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
