@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Personnel } from '../../../shared/interfaces/personnel.interface';
+import { Personnel } from '../../../shared/models/personnel';
 import { PersonnelService } from '../../../core/services/personnel.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,18 +12,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./personnel-form.component.scss']
 })
 export class PersonnelFormComponent implements OnInit {
+  id! : number;
   personnelForm: FormGroup;
   isEditMode = false;
   isLoading = false;
   postes = ['Enseignant', 'Secrétaire', 'Vigile', 'Comptable', 'Directeur'];
   matieres = [
-    'Mathématiques',
-    'Français',
-    'Anglais',
-    'Histoire-Géographie',
-    'SVT',
-    'Physique-Chimie'
+    'SVT', 
+    'PHILOSOPHIE', 
+    'CHIMIE', 
+    'MATHEMATIQUES', 
+    'ANGLAIS', 
+    'PHYSIQUE', 
+    'HISTOIRE', 
+    'FRANCAIS', 
+    'GEOGRAPHIE', 
+    'EPS'
   ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -65,19 +71,19 @@ export class PersonnelFormComponent implements OnInit {
       
       switch (poste) {
         case 'Directeur':
-          minSalaire = 150000;
+          minSalaire = 10000;
           break;
         case 'Enseignant':
-          minSalaire = 100000;
+          minSalaire = 10000;
           break;
         case 'Comptable':
-          minSalaire = 80000;
+          minSalaire = 10000;
           break;
         case 'Secrétaire':
-          minSalaire = 60000;
+          minSalaire = 10000;
           break;
         case 'Vigile':
-          minSalaire = 30000;
+          minSalaire = 10000;
           break;
       }
       
@@ -90,10 +96,10 @@ export class PersonnelFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
+    this.id = this.route.snapshot.params['id'];
+    if (this.id) {
       this.isEditMode = true;
-      this.loadPersonnel(id);
+      this.loadPersonnel(this.id);
     }
   }
 
@@ -115,9 +121,8 @@ export class PersonnelFormComponent implements OnInit {
     if (this.personnelForm.valid) {
       this.isLoading = true;
       const personnel = this.personnelForm.value;
-
       const operation = this.isEditMode
-        ? this.personnelService.update(this.route.snapshot.params['id'], personnel)
+        ? this.personnelService.update(this.id, personnel)
         : this.personnelService.create(personnel);
 
       operation.subscribe({

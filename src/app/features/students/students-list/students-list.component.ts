@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Student } from '../../../shared/interfaces/student.interface';
+import { Student } from '../../../shared/models/student';
 import { StudentService } from '../../../core/services/student.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';

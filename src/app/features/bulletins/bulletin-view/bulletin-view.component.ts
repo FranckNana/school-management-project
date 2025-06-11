@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BulletinService } from '../../../core/services/bulletin.service';
 import { ErrorService } from '../../../core/services/error.service';
-import { Bulletin } from '../../../shared/interfaces/bulletin.interface';
+import { Bulletin } from '../../../shared/models/bulletin';
 
 @Component({
   selector: 'app-bulletin-view',

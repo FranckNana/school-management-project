@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Student } from '../../../shared/interfaces/student.interface';
+import { Student } from '../../../shared/models/student';
 import { StudentService } from '../../../core/services/student.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

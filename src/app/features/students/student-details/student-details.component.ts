@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Student } from '../../../shared/models/student.model';
+import { Student } from '../../../shared/models/student';
 
 @Component({
   selector: 'app-student-details',

@@ -24,9 +24,6 @@ export class AuthService {
 
         localStorage.setItem('currentUser', JSON.stringify(userData));
         console.log('Utilisateur connecté !');
-      }else {
-        localStorage.removeItem('currentUser');
-        console.log('Aucun utilisateur connecté.');
       }
     });
 
@@ -36,6 +33,12 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         this.currentUser = userCredential.user;
+
+        this.getToken().then(token => {
+          if (token) {
+            localStorage.setItem('jwt', token);
+          }
+        })
 
         const userData = {
           uid: this.currentUser?.uid,
@@ -55,6 +58,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('jwt');
     this.currentUserSubject.next(null);
     return this.auth.signOut();
   }

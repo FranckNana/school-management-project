@@ -13,12 +13,13 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const currentUser = this.authService.currentUser$;
-    const token = this.authService.getToken();
-    if (currentUser) {
+    //const currentUser = this.authService.currentUser$;
+    const jwt = localStorage.getItem('jwt');
+    //console.log('JWT from localStorage:', jwt);
+    if (jwt) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${jwt}`
         }
       });
     }

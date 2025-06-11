@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Schedule } from '../../../shared/interfaces/schedule.interface';
+import { Schedule } from '../../../shared/models/schedule';
 import { ScheduleService } from '../../../core/services/schedule.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';

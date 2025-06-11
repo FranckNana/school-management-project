@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Schedule } from '../../../shared/interfaces/schedule.interface';
+import { Schedule } from '../../../shared/models/schedule';
 import { ScheduleService } from '../../../core/services/schedule.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Bulletin } from '../../../shared/interfaces/bulletin.interface';
+import { Bulletin } from '../../../shared/models/bulletin';
 import { BulletinService } from '../../../core/services/bulletin.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
