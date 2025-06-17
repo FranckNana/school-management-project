@@ -28,6 +28,8 @@ jobs:
           FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+          SERVER_EC2_URL: ${{ secrets.SERVER_EC2_URL }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
 
       - name: Build Angular App
         run: npm run build -- --configuration production
