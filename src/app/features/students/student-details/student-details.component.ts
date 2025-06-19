@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../shared/models/student';
+import { StudentService } from '../../../core/services/student.service';
 
 @Component({
   selector: 'app-student-details',
@@ -8,7 +9,7 @@ import { Student } from '../../../shared/models/student';
   styleUrls: ['./student-details.component.scss']
 })
 export class StudentDetailsComponent implements OnInit {
-  student: Student = {
+  /*student: Student = {
     id: 1,
     numeroMatricule: '2023001',
     nom: 'Sawadogo',
@@ -29,19 +30,31 @@ export class StudentDetailsComponent implements OnInit {
     paiements: [
       { date: new Date('2023-10-01'), montant: 50000, motif: 'Scolarité 1er trimestre' }
     ]
-  };
+  };*/
+
+  student?: Student;
 
   constructor(
+    private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
+    this.studentService.getById(id).subscribe({
+      next: (student: Student) => {
+        this.student = student;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement de l\'étudiant:', error);
+        // Gérer l'erreur, par exemple en affichant un message à l'utilisateur
+      }
+    });
     console.log('Chargement des données pour l\'ID:', id);
   }
 
   editStudent() {
-    this.router.navigate(['/students/edit', this.student.id]);
+    this.router.navigate(['/students/edit', this.student?.id]);
   }
 }

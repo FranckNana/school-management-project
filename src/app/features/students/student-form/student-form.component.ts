@@ -34,7 +34,7 @@ export class StudentFormComponent implements OnInit {
       telephoneParent: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
       adresse: ['', [Validators.required, Validators.minLength(5)]]
     });
-  }
+  } 
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
