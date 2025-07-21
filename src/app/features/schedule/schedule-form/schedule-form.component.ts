@@ -6,6 +6,7 @@ import { Schedule } from '../../../shared/models/schedule';
 import { ScheduleService } from '../../../core/services/schedule.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PersonnelService } from '../../../core/services/personnel.service';
 
 @Component({
   selector: 'app-schedule-form',
@@ -17,14 +18,18 @@ export class ScheduleFormComponent implements OnInit {
   isEditMode = false;
   isLoading = false;
   classes = ['6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
-  matieres = ['Mathématiques', 'Français', 'Anglais', 'Histoire-Géographie', 'SVT', 'Physique-Chimie'];
+  matieres = ['Mathématiques', 'Français', 'Anglais', 'Histoire-Géographie', 'SVT', 'Physique-Chimie', 'Philosophie', 'EPS', 'Autre'] as const;
   jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'] as const;
+
+
+  listOfTeachers: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private scheduleService: ScheduleService,
+    private personnelService: PersonnelService,
     private errorService: ErrorService,
     private snackBar: MatSnackBar
   ) {
@@ -45,6 +50,19 @@ export class ScheduleFormComponent implements OnInit {
       this.isEditMode = true;
       this.loadSchedule(Number(id));
     }
+    this.getTeacherList();
+  }
+
+  getTeacherList(){
+    this.personnelService.getAll().subscribe({
+      next: (personnels) => {
+        personnels.filter(p=> p.poste === 'Enseignant').forEach(teacher => {
+          this.listOfTeachers.push(`${teacher.nom} ${teacher.prenom}`);
+        });
+        this.listOfTeachers.sort((a, b) => a.localeCompare(b)); // Sort alphabetically
+      },
+      error: (error) => this.errorService.handleError(error)
+    }); 
   }
 
   loadSchedule(id: number): void {

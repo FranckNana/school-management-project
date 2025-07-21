@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../../shared/models/student';
 import { environment } from '../../../environments/environment';
-import { DELETE_STUDENT, GET_ALL_STUDENTS, GET_STUDENT_BY_ID, PATCH_STUDENT, POST_STUDENT } from '../../shared/urls/constants';
+import { DELETE_STUDENT, DELETE_STUDENT_PAIEMENT, GET_ALL_STUDENTS, GET_STUDENT_BY_ID, PATCH_STUDENT, PATCH_STUDENT_PAIEMENT, POST_STUDENT } from '../../shared/urls/constants';
+import { Payment } from '../../shared/models/accounting';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   create(student: Omit<Student, 'id'>): Observable<Student> {
-     return this.http.post<Student>(this.server_url + POST_STUDENT, student);
+    return this.http.post<Student>(this.server_url + POST_STUDENT, student);
   }
 
   getAll(): Observable<Student[]> {
@@ -32,5 +33,14 @@ export class StudentService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(this.server_url + DELETE_STUDENT + id);
+  }
+
+  updatePaiement(paiement: Payment): Observable<Student> {
+    return this.http.patch<Student>(this.server_url + PATCH_STUDENT_PAIEMENT , paiement);
+  }
+
+  deletePaiement(paiement: Payment): Observable<void> {
+    return this.http.delete<void>(this.server_url + DELETE_STUDENT_PAIEMENT, {
+      body: paiement});
   }
 } 

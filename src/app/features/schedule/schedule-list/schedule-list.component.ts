@@ -9,6 +9,7 @@ import { ScheduleService } from '../../../core/services/schedule.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PersonnelService } from '../../../core/services/personnel.service';
 
 @Component({
   selector: 'app-schedule-list',
@@ -16,16 +17,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./schedule-list.component.scss']
 })
 export class ScheduleListComponent implements OnInit {
-  displayedColumns: string[] = ['jour', 'heures', 'matiere', 'enseignant', 'salle', 'actions'];
-  dataSource: { [key: string]: MatTableDataSource<Schedule> } = {};
-  classes = ['6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
+  displayedColumns: string[] = ['jour', 'heures', 'matiere', 'classe', 'enseignant', 'salle', 'actions'];
+  //dataSource: { [key: string]: MatTableDataSource<Schedule> } = {};
+  dataSource = new MatTableDataSource<Schedule>();
+  classes = ['Tous', '6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
   jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
   matieres = ['Mathématiques', 'Français', 'Anglais', 'Histoire-Géographie', 'SVT', 'Physique-Chimie'];
   
-  selectedClass = '6ème A';
+  selectedClass = 'Tous';
   selectedJour: string | null = null;
   selectedMatiere: string | null = null;
   searchText = '';
+
+  allSchedules: Schedule[] = [];
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,22 +39,16 @@ export class ScheduleListComponent implements OnInit {
     private scheduleService: ScheduleService,
     private dialog: MatDialog,
     private errorService: ErrorService
-  ) {
-    this.classes.forEach(classe => {
-      this.dataSource[classe] = new MatTableDataSource<Schedule>();
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadSchedules();
   }
 
   ngAfterViewInit(): void {
-    Object.values(this.dataSource).forEach(ds => {
-      ds.paginator = this.paginator;
-      ds.sort = this.sort;
-      ds.filterPredicate = this.createFilter();
-    });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.createFilter();
   }
 
   createFilter(): (data: Schedule, filter: string) => boolean {
@@ -77,22 +75,25 @@ export class ScheduleListComponent implements OnInit {
   loadSchedules(): void {
     this.scheduleService.getAll().subscribe({
       next: (schedules) => {
-        this.classes.forEach(classe => {
-          if (this.dataSource[classe]) {
-            this.dataSource[classe].data = schedules.filter(s => s.classe === classe);
-          }
-        });
-        this.applyFilters();
+        this.allSchedules = schedules;
+        this.updateDataSource();
       },
-      error: (error: HttpErrorResponse) => {
-        this.errorService.handleError(error);
-      }
+      error: (error) => this.errorService.handleError(error)
     });
   }
 
-  applyFilter(searchText: string): void {
-    this.searchText = searchText;
+  updateDataSource(): void {
+    if (this.selectedClass === 'Tous') {
+      this.dataSource.data = this.allSchedules;
+    } else {
+      this.dataSource.data = this.allSchedules.filter(s => s.classe === this.selectedClass);
+    }
     this.applyFilters();
+  }
+
+  onClassChange(classe: string): void {
+    this.selectedClass = classe;
+    this.updateDataSource();
   }
 
   applyFilters(): void {
@@ -101,19 +102,14 @@ export class ScheduleListComponent implements OnInit {
       jour: this.selectedJour,
       matiere: this.selectedMatiere
     });
-    
-    const currentDataSource = this.dataSource[this.selectedClass];
-    if (currentDataSource) {
-      currentDataSource.filter = filterValue;
-
-      if (currentDataSource.paginator) {
-        currentDataSource.paginator.firstPage();
-      }
+    this.dataSource.filter = filterValue;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
-  onClassChange(classe: string): void {
-    this.selectedClass = classe;
+  applyFilter(searchText: string): void {
+    this.searchText = searchText;
     this.applyFilters();
   }
 

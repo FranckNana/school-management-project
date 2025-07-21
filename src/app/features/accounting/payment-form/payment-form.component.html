@@ -6,22 +6,25 @@
   <mat-card-content>
     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
       <div class="row">
+    
         <div class="col-md-6">
           <mat-form-field class="w-100">
             <mat-label>Élève</mat-label>
-            <input matInput formControlName="eleve">
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field class="w-100">
-            <mat-label>Classe</mat-label>
-            <mat-select formControlName="classe">
-              <mat-option *ngFor="let classe of classes" [value]="classe">
-                {{classe}}
+            <mat-select formControlName="eleve">
+              <mat-option *ngFor="let student of listOfStudents" [value]="student">
+                {{student}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Classe</mat-label>
+            <input matInput formControlName="classe" readonly>
+          </mat-form-field>
+        </div> 
+        
       </div>
 
       <div class="row">

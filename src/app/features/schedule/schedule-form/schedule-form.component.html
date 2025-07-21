@@ -59,10 +59,15 @@
             <mat-error>{{getErrorMessage('matiere')}}</mat-error>
           </mat-form-field>
         </div>
+
         <div class="col-md-6">
           <mat-form-field class="w-100">
             <mat-label>Enseignant</mat-label>
-            <input matInput formControlName="enseignant" placeholder="Ex: M. Ouedraogo">
+            <mat-select formControlName="enseignant">
+              <mat-option *ngFor="let teacher of listOfTeachers" [value]="teacher">
+                {{teacher}}
+              </mat-option>
+            </mat-select>
             <mat-error>{{getErrorMessage('enseignant')}}</mat-error>
           </mat-form-field>
         </div>

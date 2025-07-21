@@ -20,12 +20,7 @@ export class PersonnelListComponent implements OnInit {
   dataSource: MatTableDataSource<Personnel>;
   postes = ['Enseignant', 'Secrétaire', 'Vigile', 'Comptable', 'Directeur'];
   matieres = [
-    'Mathématiques',
-    'Français',
-    'Anglais',
-    'Histoire-Géographie',
-    'SVT',
-    'Physique-Chimie'
+    'Mathématiques', 'Français', 'Anglais', 'Histoire-Géographie', 'SVT', 'Physique-Chimie', 'Philosophie', 'EPS'
   ];
   
   selectedPoste: string | null = null;

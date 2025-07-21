@@ -22,7 +22,10 @@ export class BulletinFormComponent implements OnInit {
     'Anglais',
     'Histoire-Géographie',
     'SVT',
-    'Physique-Chimie'
+    'Physique-Chimie',
+    'PHILOSOPHIE',
+    'EPS',
+    'AUTRE'
   ];
   trimestres = [1, 2, 3];
 
@@ -53,7 +56,7 @@ export class BulletinFormComponent implements OnInit {
     } else {
       this.initializeNotes();
     }
-  }
+  } 
 
   get notesArray() {
     return this.bulletinForm.get('notes') as FormArray;
@@ -133,6 +136,8 @@ export class BulletinFormComponent implements OnInit {
       this.isLoading = true;
       const bulletinData = {
         ...this.bulletinForm.value,
+        nomEleve: this.students.find(s => s.id === this.bulletinForm.value.eleveId)?.nom,
+        classe: this.students.find(s => s.id === this.bulletinForm.value.eleveId)?.classe,
         moyenneGenerale: this.calculateMoyenne(),
         dateGeneration: new Date()
       };

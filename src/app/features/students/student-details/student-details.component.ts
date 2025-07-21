@@ -9,30 +9,8 @@ import { StudentService } from '../../../core/services/student.service';
   styleUrls: ['./student-details.component.scss']
 })
 export class StudentDetailsComponent implements OnInit {
-  /*student: Student = {
-    id: 1,
-    numeroMatricule: '2023001',
-    nom: 'Sawadogo',
-    prenom: 'Fatima',
-    dateNaissance: new Date('2010-03-15'),
-    classe: '6ème A',
-    nomParent: 'Sawadogo Issouf',
-    telephoneParent: '70234567',
-    adresse: 'Ouagadougou, Secteur 25',
-    notes: [
-      { matiere: 'Mathématiques', note: 15, coefficient: 5, trimestre: 1 },
-      { matiere: 'Français', note: 14, coefficient: 5, trimestre: 1 }
-    ],
-    presences: [
-      { date: new Date('2024-03-01'), present: true },
-      { date: new Date('2024-03-02'), present: false, motif: 'Maladie' }
-    ],
-    paiements: [
-      { date: new Date('2023-10-01'), montant: 50000, motif: 'Scolarité 1er trimestre' }
-    ]
-  };*/
 
-  student?: Student;
+  student : Student = {} as Student;
 
   constructor(
     private studentService: StudentService,
@@ -48,13 +26,29 @@ export class StudentDetailsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur lors du chargement de l\'étudiant:', error);
-        // Gérer l'erreur, par exemple en affichant un message à l'utilisateur
       }
-    });
-    console.log('Chargement des données pour l\'ID:', id);
+    }); 
   }
 
   editStudent() {
     this.router.navigate(['/students/edit', this.student?.id]);
   }
+
+  editPaiement(idPayement: number){
+    this.router.navigate(['/accounting/payment/edit', idPayement]);
+  }
+
+  deletePaiement(paiement:any){
+    this.studentService.deletePaiement(paiement).subscribe({
+      next: () => {
+        console.log('Paiement supprimé avec succès');
+        this.router.navigate(['/students']);
+      }
+      ,
+      error: (error) => {
+        console.error('Erreur lors de la suppression du paiement:', error);
+      }
+    }); 
+  }
+
 }

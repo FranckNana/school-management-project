@@ -13,7 +13,13 @@ const routes: Routes = [
         path: 'payment/new', component: PaymentFormComponent, canActivate: [AuthGuard]
     },
     { 
+        path: 'payment/edit/:id', component: PaymentFormComponent, canActivate: [AuthGuard]
+    },
+    { 
         path: 'salary/new', component: SalaryFormComponent, canActivate: [AuthGuard]
+    },
+    { 
+        path: 'salary/edit/:id', component: SalaryFormComponent, canActivate: [AuthGuard]
     },
 ]
 @NgModule({

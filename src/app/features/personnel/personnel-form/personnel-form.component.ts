@@ -19,15 +19,14 @@ export class PersonnelFormComponent implements OnInit {
   postes = ['Enseignant', 'Secrétaire', 'Vigile', 'Comptable', 'Directeur'];
   matieres = [
     'SVT', 
-    'PHILOSOPHIE', 
-    'CHIMIE', 
+    'PHILOSOPHIE',  
     'MATHEMATIQUES', 
     'ANGLAIS', 
-    'PHYSIQUE', 
-    'HISTOIRE', 
+    'PHYSIQUE_CHIMIE', 
+    'HISTOIRE_GEOGRAPHIE', 
     'FRANCAIS', 
-    'GEOGRAPHIE', 
-    'EPS'
+    'EPS',
+    'AUTRE'
   ];
 
 
