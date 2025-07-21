@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  server_url :'https://35.180.63.75:${SERVER_PORT}',
+  server_url :'http://35.180.63.75:${SERVER_PORT}',
   firebaseConfig: {
     apiKey: '${FIREBASE_API_KEY}',
     authDomain: '${FIREBASE_AUTH_DOMAIN}',
