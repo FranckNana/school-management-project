@@ -1,0 +1,98 @@
+<h2 mat-dialog-title class="dialog-title">
+  Nouvelle Notification / Événement
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="notificationForm" class="notification-form">
+
+    <!-- Titre -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre</mat-label>
+      <mat-select formControlName="title" (selectionChange)="onTitleChange($event.value)">
+        <mat-option value="Réunion des enseignants">Réunion des enseignants</mat-option>
+        <mat-option value="Examens 1er trimestre">Examens 1er trimestre</mat-option>
+        <mat-option value="Examens 2ème trimestre">Examens 2ème trimestre</mat-option>
+        <mat-option value="Examens 3ème trimestre">Examens 3ème trimestre</mat-option>
+        <mat-option value="Conseil de classe">Conseil de classe</mat-option>
+        <mat-option value="Divers">Divers</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Description uniquement si "Divers" -->
+    <mat-form-field appearance="outline" class="full-width" *ngIf="showDescription">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Entrez une description pour cet événement"
+        rows="3"
+        formControlName="description">
+      </textarea>
+    </mat-form-field>
+
+    <!-- Degré d’importance -->
+    <div class="importance-section">
+      <label class="importance-label">Degré d’importance :</label>
+      <div class="importance-options">
+        <div
+          *ngFor="let level of importanceLevels"
+          class="importance-badge"
+          [ngStyle]="{'background-color': level.color}"
+          (click)="setImportance(level)"
+          [class.selected]="notificationForm.get('importance')?.value === level.name"
+        >
+          <mat-icon>{{ level.icon }}</mat-icon>
+          {{ level.name }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Sélection de date et d'heure -->
+    <div class="datetime-container">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          placeholder="Choisir une date"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Heure</mat-label>
+        <input
+          matInput
+          type="time"
+          formControlName="time"
+          placeholder="HH:mm"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- Aperçu -->
+    <div class="preview" *ngIf="notificationForm.valid">
+      <div class="icon-preview" [style.color]="selectedColor">
+        <mat-icon style="font-size: 32px;">{{ notificationForm.get('icon')?.value }}</mat-icon>
+      </div>
+      <div class="preview-text">
+        <h3>{{ notificationForm.get('title')?.value }}</h3>
+        <p>{{ notificationForm.get('date')?.value | date:'EEEE d MMMM yyyy' }} à {{ notificationForm.get('time')?.value }}</p>
+      </div>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button mat-dialog-close>Annuler</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="notificationForm.invalid"
+  >
+    Enregistrer
+  </button>
+</mat-dialog-actions>

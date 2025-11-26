@@ -62,7 +62,15 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
-    OverlayModule
+    OverlayModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   exports: [
     CommonModule,

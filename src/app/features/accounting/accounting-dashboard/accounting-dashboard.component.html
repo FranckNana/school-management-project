@@ -18,11 +18,22 @@
       <mat-card-header>
         <mat-card-title>
           <mat-icon color="primary">account_balance</mat-icon>
-          Solde
+          Solde avant dépenses
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <h2>15,750,000 FCFA</h2>
+        <h2>{{soldeBefore}} FCFA</h2> 
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="primary">account_balance</mat-icon>
+          Solde après dépenses
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>{{solde}} FCFA</h2> 
       </mat-card-content>
     </mat-card>
   </div>
@@ -35,10 +46,22 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <h2>2,500,000 FCFA</h2>
+        <h2>{{recette}} FCFA</h2>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="accent">trending_up</mat-icon>
+          Recettes totale
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>{{allRecette}} FCFA</h2>
       </mat-card-content>
     </mat-card>
   </div>
+
   <div class="col-md-4">
     <mat-card>
       <mat-card-header>
@@ -48,7 +71,18 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <h2>1,800,000 FCFA</h2>
+        <h2>{{depenses}} FCFA</h2>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="warn">trending_down</mat-icon>
+          Dépenses totales
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>{{alldepenses}} FCFA</h2>
       </mat-card-content>
     </mat-card>
   </div>

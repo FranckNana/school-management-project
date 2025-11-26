@@ -19,6 +19,8 @@ import { PersonnelService } from './services/personnel.service';
 import { ScheduleService } from './services/schedule.service';
 import { AccountingService } from './services/accounting.service';
 import { ErrorService } from './services/error.service';
+import { NotificationService } from './services/notification.service';
+import { MetricsService } from './services/metrics.service';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { ErrorService } from './services/error.service';
     ScheduleService,
     AccountingService,
     ErrorService,
+    NotificationService,
+    MetricsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

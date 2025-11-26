@@ -57,7 +57,9 @@ export class AuthService {
   }
 
   logout(){
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('firebase:previous_websocket_failure');
     localStorage.removeItem('jwt');
     this.currentUserSubject.next(null);
     return this.auth.signOut();

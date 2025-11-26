@@ -31,6 +31,13 @@ export const DELETE_SALARY = '/api/v1/paiements/salary/';
 export const PATCH_SALARY = '/api/v1/paiements/salary';
 export const GET_SALARY_BY_ID = '/api/v1/paiements/salary/';
 
+export const GET_SOLDE = '/api/v1/paiements/solde';
+export const GET_SOLDE_BEFORE = '/api/v1/paiements/soldebefore';
+export const GET_DEPENSES = '/api/v1/paiements/depenses';
+export const GET_ALL_DEPENSES = '/api/v1/paiements/alldepenses';
+export const GET_RECETTE = '/api/v1/paiements/recette';
+export const GET_ALL_RECETTE = '/api/v1/paiements/allrecette';
+
 /**************************** BULLETIN ***********************************/
 export const POST_BULLETIN = '/api/v1/bulletins';
 export const GET_ALL_BULLETIN = '/api/v1/bulletins';
@@ -39,3 +46,11 @@ export const GET_BULLETIN_BY_ID = '/api/v1/bulletins/';
 export const GET_BULLETIN_BY_IDELEVE = '/api/v1/bulletins/eleve/';
 export const GET_BULLETIN_GENERATE_PDF = '/api/v1/bulletins/generate-pdf/';
 export const PATCH_BULLETIN = '/api/v1/bulletins';
+
+/**************************** NOTIFICATION ***********************************/
+export const POST_NOTIFICATION = '/api/v1/notifications';
+export const GET_ALL_NOTIFICATIONS = '/api/v1/notifications';
+export const DELETE_NOTIFICATION = '/api/v1/notifications/';
+
+/**************************** METRICS ***********************************/
+export const GET_METRICS = '/api/v1/metrics';

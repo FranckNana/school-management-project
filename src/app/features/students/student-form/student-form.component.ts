@@ -15,6 +15,7 @@ export class StudentFormComponent implements OnInit {
   studentForm: FormGroup;
   isEditMode = false;
   isLoading = false;
+  resteApayer: number | undefined;
   classes = ['6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
 
   constructor(
@@ -32,7 +33,8 @@ export class StudentFormComponent implements OnInit {
       classe: ['', Validators.required],
       nomParent: ['', [Validators.required, Validators.minLength(2)]],
       telephoneParent: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
-      adresse: ['', [Validators.required, Validators.minLength(5)]]
+      adresse: ['', [Validators.required, Validators.minLength(5)]],
+      prixScholarite: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
     });
   } 
 
@@ -42,6 +44,11 @@ export class StudentFormComponent implements OnInit {
       this.isEditMode = true;
       this.loadStudent(id);
     }
+
+    this.studentForm.get('prixScholarite')?.valueChanges.subscribe(value => {
+      const montant = Number(value) || 0;
+      this.resteApayer = montant; 
+    });
   }
 
   loadStudent(id: number): void {
@@ -98,7 +105,7 @@ export class StudentFormComponent implements OnInit {
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
     
-    return age < 10 || age > 20 ? { invalidAge: true } : null;
+    return age < 10 || age > 30 ? { invalidAge: true } : null;
   }
 
   // Utilitaire pour marquer tous les champs comme touchés
@@ -122,7 +129,8 @@ export class StudentFormComponent implements OnInit {
       return `Minimum ${errors['minlength'].requiredLength} caractères`;
     }
     if (errors['pattern']) return 'Numéro de téléphone invalide (8 chiffres)';
-    if (errors['invalidAge']) return 'L\'âge doit être entre 10 et 20 ans';
+    if (errors['invalidAge']) return 'L\'âge doit être entre 10 et 30 ans';
+    if (errors['invalidPrix']) return 'Le prix doit être un nombre positif';
 
     return 'Champ invalide';
   }

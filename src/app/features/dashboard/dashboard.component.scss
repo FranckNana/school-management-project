@@ -219,6 +219,7 @@
   background: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s ease;
+  min-height: 500px;         /* ajuste cette valeur selon la hauteur d'une rangée *******************************************/
 
   &:hover {
     transform: translateY(-4px);
@@ -393,3 +394,367 @@
 .dash-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari et Edge */
 }
+
+.no-schedule-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #6b7280;
+  text-align: center;
+  font-weight: 500;
+  min-height: 250px;
+}
+
+.no-schedule-icon {
+  font-size: 48px;
+  color: #a5b4fc;
+  margin-top: 8px;
+}
+
+.no-schedule-img {
+  width: 220px;
+  max-width: 100%;
+  opacity: 0.9;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+.notifications-container {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.notifications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  h3 {
+    font-weight: 600;
+    color: #1e293b;
+  }
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.75rem;
+  background: #f9fafb;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f3f4f6;
+    transform: translateX(4px);
+  }
+
+  mat-icon {
+    font-size: 26px;
+  }
+
+  .notification-content {
+    display: flex;
+    flex-direction: column;
+
+    strong {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    p {
+      color: #4b5563;
+      margin: 0;
+    }
+
+    small {
+      color: #9ca3af;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.no-notification {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem 1rem;
+  color: #6b7280;
+  animation: fadeIn 0.4s ease-in-out;
+
+  .empty-illustration {
+    width: 120px;
+    height: auto;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    border-radius: 9999px;
+    padding: 0.3rem 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-content .row {
+  display: flex;
+  align-items: stretch; /* Assure la même hauteur */
+}
+
+/* Chaque colonne prend toute la hauteur du parent */
+.dashboard-content .col-md-8,
+.dashboard-content .col-md-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Harmonisation des cartes */
+.schedule-card,
+.notifications-container {
+  flex: 1; /* Prend toute la hauteur disponible */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ajustement des contenus internes pour un bon centrage */
+.no-schedule-container,
+.no-notification {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.schedule-card, .notifications-container {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+}
+
+.notifications-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .mat-mdc-card-header {
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .card-title-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+
+      .icon-container {
+        background: #eef2ff;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        mat-icon {
+          color: #4f46e5;
+          font-size: 24px;
+        }
+      }
+
+      span {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+    }
+
+    .add-btn {
+      margin-left: auto;
+      background: #4f46e5;
+      color: white;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background: #4338ca;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .mat-mdc-card-content {
+    flex: 1;
+    padding: 1.25rem !important;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
+/* 1️⃣ Empêcher le scroll horizontal général */
+.dash-container {
+  overflow-x: hidden !important;
+}
+
+/* 2️⃣ Forcer le scroll vertical uniquement dans les cartes longues */
+.schedule-card .mat-mdc-card-content,
+.notifications-card .mat-mdc-card-content {
+  max-height: calc(4 * 95px); /* scroll après 5 éléments environ */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #c7d2fe transparent;
+}
+
+.schedule-card .mat-mdc-card-content::-webkit-scrollbar,
+.notifications-card .mat-mdc-card-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.schedule-card .mat-mdc-card-content::-webkit-scrollbar-thumb,
+.notifications-card .mat-mdc-card-content::-webkit-scrollbar-thumb {
+  background-color: #c7d2fe;
+  border-radius: 10px;
+}
+
+.schedule-card .mat-mdc-card-content::-webkit-scrollbar-thumb:hover,
+.notifications-card .mat-mdc-card-content::-webkit-scrollbar-thumb:hover {
+  background-color: #818cf8;
+}
+
+/* 3️⃣ Petits ajustements visuels pour stabilité */
+.schedule-card,
+.notifications-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-card .mat-mdc-card-content,
+.notifications-card .mat-mdc-card-content {
+  flex: 1;
+}
+
+/* === Modern Schedule === */
+.modern-schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.course-card {
+  border-radius: 1rem;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+  }
+
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    .course-time {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+
+    .course-status {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      background: rgba(255,255,255,0.2);
+      &.EnCours { background: rgba(255,255,255,0.3); }
+      &.Termine { background: rgba(0,0,0,0.2); }
+      &.Avenir { background: rgba(255,255,255,0.2); }
+    }
+  }
+
+  .course-body {
+    h3 {
+      margin: 0.25rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0.2rem 0;
+      font-weight: 500;
+    }
+
+    small {
+      opacity: 0.9;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modern-schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

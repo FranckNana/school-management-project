@@ -1,46 +1,36 @@
 <div class="dashboard-container" [@fadeInUp]>
-  <!-- Header et Stats cards restent inchangés -->
+  <!-- HEADER -->
   <div class="dashboard-header">
     <div class="header-content">
       <div class="header-left">
         <h1>Tableau de Bord</h1>
         <div class="date-info">
-          {{today | date:'EEEE d MMMM yyyy'}}
+          {{ today | date:'EEEE d MMMM yyyy' }}
         </div>
       </div>
       <div class="header-actions">
-        <button mat-raised-button color="primary">
-          <mat-icon>add</mat-icon>
-          Nouvel élève
+        <button mat-raised-button color="primary" (click)="addStudent()">
+          <mat-icon>add</mat-icon> Nouvel élève
         </button>
-        <button mat-raised-button color="accent">
-          <mat-icon>calendar_today</mat-icon>
-          Planning
+        <button mat-raised-button color="accent" (click)="goToSchedule()">
+          <mat-icon>calendar_today</mat-icon> Planning
         </button>
         <button mat-raised-button>
-          <mat-icon>print</mat-icon>
-          Rapport
+          <mat-icon>print</mat-icon> Rapport
         </button>
       </div>
     </div>
   </div>
 
+  <!-- STATS -->
   <div class="dashboard-stats" [@statsAnimation]>
     <mat-card class="stats-card purple">
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/college-students-concept-illustration_114360-10205.jpg?w=500')"></div>
       <mat-card-content>
-        <div class="icon-container">
-          <mat-icon>school</mat-icon>
-        </div>
-        <div class="stats-info">
-          <h2>450</h2>
-          <p>Élèves inscrits</p>
-        </div>
+        <div class="icon-container"><mat-icon>school</mat-icon></div>
+        <div class="stats-info"><h2>{{metrics?.totalStudents}}</h2><p>Élève(s) inscrit(s)</p></div>
         <div class="stats-footer">
-          <span class="trend positive">
-            <mat-icon>trending_up</mat-icon>
-            +5% ce mois
-          </span>
+          <span class="trend positive"><mat-icon>trending_up</mat-icon> +5% ce mois</span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -48,18 +38,10 @@
     <mat-card class="stats-card blue">
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/teacher-concept-illustration_114360-1638.jpg?w=500')"></div>
       <mat-card-content>
-        <div class="icon-container">
-          <mat-icon>people</mat-icon>
-        </div>
-        <div class="stats-info">
-          <h2>25</h2>
-          <p>Enseignants</p>
-        </div>
+        <div class="icon-container"><mat-icon>people</mat-icon></div>
+        <div class="stats-info"><h2>{{metrics?.totalTeachers}}</h2><p>Enseignant(s)</p></div>
         <div class="stats-footer">
-          <span class="trend neutral">
-            <mat-icon>trending_flat</mat-icon>
-            Stable
-          </span>
+          <span class="trend neutral"><mat-icon>trending_flat</mat-icon> Stable</span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -67,18 +49,10 @@
     <mat-card class="stats-card green">
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/payment-information-concept-illustration_114360-5352.jpg?w=500')"></div>
       <mat-card-content>
-        <div class="icon-container">
-          <mat-icon>payments</mat-icon>
-        </div>
-        <div class="stats-info">
-          <h2>85%</h2>
-          <p>Paiements à jour</p>
-        </div>
+        <div class="icon-container"><mat-icon>payments</mat-icon></div>
+        <div class="stats-info"><h2>{{metrics?.paymentComplianceRate | number:'1.2-2'}}%</h2><p>Paiements à jour</p></div>
         <div class="stats-footer">
-          <span class="trend positive">
-            <mat-icon>trending_up</mat-icon>
-            +10% ce mois
-          </span>
+          <span class="trend positive"><mat-icon>trending_up</mat-icon> +10% ce mois</span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -86,109 +60,106 @@
     <mat-card class="stats-card orange">
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/schedule-concept-illustration_114360-1531.jpg?w=500')"></div>
       <mat-card-content>
-        <div class="icon-container">
-          <mat-icon>event</mat-icon>
-        </div>
-        <div class="stats-info">
-          <h2>12</h2>
-          <p>Cours aujourd'hui</p>
-        </div>
+        <div class="icon-container"><mat-icon>event</mat-icon></div>
+        <div class="stats-info"><h2>{{metrics?.todaysClassesCount}}</h2><p>Cours aujourd’hui</p></div>
         <div class="stats-footer">
-          <span class="trend neutral">
-            <mat-icon>schedule</mat-icon>
-            4 en cours
-          </span>
+          <span class="trend neutral"><mat-icon>schedule</mat-icon> 4 en cours</span>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 
-  <div class="dashboard-content"> 
+  <!-- EMPLOI DU TEMPS -->
+  <div class="dashboard-content">
     <div class="row">
       <div class="col-md-8">
-        <mat-card class="schedule-card">
-          <mat-card-header>
-            <mat-card-title>
-              <div class="card-title-content">
-                <div class="icon-container">
-                  <mat-icon>schedule</mat-icon>
-                </div>
-                <span>Emploi du temps du jour</span>
+      <mat-card class="schedule-card modern-schedule">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="card-title-content">
+              <div class="icon-container">
+                <mat-icon>schedule</mat-icon>
               </div>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dash-container">
-            <table mat-table [dataSource]="todaySchedule" class="w-100" [@tableAnimation]>
-              <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef>Horaire</th>
-                <td mat-cell *matCellDef="let element">
-                  <div>
-                    <mat-icon style="color: #6366f1; font-size: 20px; width: 20px; height: 18px;">access_time</mat-icon>
-                    {{element.time}}
-                  </div>
-                </td>
-              </ng-container>
+              <span>Emploi du temps du jour ({{todaySchedule.length}})</span>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
 
-              <ng-container matColumnDef="class">
-                <th mat-header-cell *matHeaderCellDef>Classe</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="class-cell">
-                    <mat-icon>groups</mat-icon>
-                    {{element.class}}
+        <mat-card-content class="dash-container">
+          <ng-container *ngIf="todaySchedule && todaySchedule.length > 0; else noSchedule">
+            <div class="modern-schedule-grid">
+              <div *ngFor="let item of todaySchedule" class="course-card" [ngStyle]="{'background': getCourseColor(item.matiere)}">
+                <div class="course-header">
+                  <div class="course-time">
+                    <mat-icon>{{ getCourseIcon(item.matiere) }}</mat-icon>
+                    {{item.heureDebut}} - {{item.heureFin}}
                   </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="subject">
-                <th mat-header-cell *matHeaderCellDef>Matière</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="subject-cell">
-                    <mat-icon>book</mat-icon>
-                    {{element.subject}}
+                  <div class="course-status" [ngClass]="getCourseStatus(item)">
+                    {{ getCourseStatus(item) }}
                   </div>
-                </td>
-              </ng-container>
+                </div>
+                <div class="course-body">
+                  <h3>{{item.matiere}}</h3>
+                  <p>{{item.classe}}</p>
+                  <small>{{item.enseignant}}</small>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
-              <ng-container matColumnDef="teacher">
-                <th mat-header-cell *matHeaderCellDef>Enseignant</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="teacher-cell">
-                    <mat-icon>person</mat-icon>
-                    {{element.teacher}}
-                  </div>
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="['time', 'class', 'subject', 'teacher']"></tr>
-              <tr mat-row *matRowDef="let row; columns: ['time', 'class', 'subject', 'teacher'];" class="schedule-row"></tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-      </div>
+          <ng-template #noSchedule>
+            <div class="no-schedule-container" [@fadeInUp]>
+              <img src="assets/no_schedule.jpg" alt="Aucun cours" class="no-schedule-img" />
+              <mat-icon class="no-schedule-icon">event_busy</mat-icon>
+              <p>Aucun cours prévu pour aujourd’hui 🎉</p>
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
       <div class="col-md-4">
-        <mat-card class="notifications-card">
-          <mat-card-header>
-            <mat-card-title>
-              <div class="card-title-content">
-                <div class="icon-container">
-                  <mat-icon>notifications</mat-icon>
-                </div>
-                <span>Notifications</span>
+        <!-- Notifications -->
+        <mat-card class="notifications-card" [@notificationAnimation]>
+          <mat-card-header class="notification-header">
+            <div class="card-title-content">
+              <div class="icon-container">
+                <mat-icon>notifications</mat-icon>
               </div>
-            </mat-card-title>
+              <span> Événementss ({{notifications.length}})</span>
+            </div>
+
+            <div style="margin-left: auto">
+              <button mat-mini-fab color="primary" (click)="openAddNotificationDialog()" matTooltip="Ajouter un événement">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            
           </mat-card-header>
+
           <mat-card-content>
-            <div class="notifications-list" [@notificationAnimation]>
-              <div class="notification-item" *ngFor="let notification of notifications">
-                <div class="notification-icon">
-                  <div class="icon-container" [ngStyle]="{'background-color': getNotificationColor(notification.type) + '20', 'color': getNotificationColor(notification.type)}">
-                    <mat-icon>{{notification.icon}}</mat-icon>
-                  </div>
-                </div>
+            <!-- Si aucune notification -->
+            <div *ngIf="notifications.length === 0" class="no-notification">
+              <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="Aucune notification" class="empty-illustration" />
+              <p>Aucune notification pour le moment</p>
+              <button mat-stroked-button color="primary" (click)="openAddNotificationDialog()">
+                <mat-icon>add</mat-icon> Ajouter un événement
+              </button>
+            </div>
+
+            <!-- ✅ Scroll interne pour les notifications -->
+            <div *ngIf="notifications.length > 0" class="notifications-list scrollable">
+              <div *ngFor="let notif of notifications" class="notification-item" [style.borderLeft]="'5px solid ' + notif.color">
+                <mat-icon [style.color]="notif.color">{{ notif.icon }}</mat-icon>
                 <div class="notification-content">
-                  <div class="notification-title">{{notification.title}}</div>
-                  <div class="notification-time">{{notification.time}}</div>
+                  <strong>{{ notif.title }}</strong>
+                  <p *ngIf="notif.description">{{ notif.description }}</p>
+                  <small>{{ notif.dateTime | date:'EEEE d MMMM yyyy à HH:mm' }}</small>
+                </div>
+                <div class="notification-actions">
+                  <button mat-icon-button color="warn" (click)="deleteNotification(notif)" matTooltip="Supprimer">
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </div>
               </div>
             </div>
@@ -197,4 +168,5 @@
       </div>
     </div>
   </div>
+
 </div>

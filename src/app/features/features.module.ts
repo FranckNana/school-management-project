@@ -34,6 +34,7 @@ import { BulletinRoutingModule } from './bulletins/bulletin-routing.modules';
 import { PersonnelRoutingModule } from './personnel/personnel-routing.modules';
 import { SchedulesRoutingModule } from './schedule/schedules-routing.modules';
 import { StudentsRoutingModule } from './students/students-routins.modules';
+import { AddNotificationDialogComponent } from './notifications/add-notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,10 @@ import { StudentsRoutingModule } from './students/students-routins.modules';
     // Bulletins
     BulletinListComponent,
     BulletinFormComponent,
-    BulletinViewComponent
+    BulletinViewComponent,
+
+    // Notifications
+    AddNotificationDialogComponent
   ],
   imports: [
     AccountingRoutingModule,
@@ -102,7 +106,10 @@ import { StudentsRoutingModule } from './students/students-routins.modules';
     // Bulletins
     BulletinListComponent,
     BulletinFormComponent,
-    BulletinViewComponent
+    BulletinViewComponent,
+
+    // Notifications
+    AddNotificationDialogComponent
   ]
 })
 export class FeaturesModule { }

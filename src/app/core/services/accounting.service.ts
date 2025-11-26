@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Payment, Salary } from '../../shared/models/accounting';
 import { environment } from '../../../environments/environment';
-import { DELETE_SALARY, GET_ALL_PAIEMENT, GET_ALL_SALARIES, GET_SALARY_BY_ID, PATCH_SALARY, POST_PAIEMENT, POST_SALARY } from '../../shared/urls/constants';
+import { DELETE_SALARY, GET_ALL_DEPENSES, GET_ALL_PAIEMENT, GET_ALL_RECETTE, GET_ALL_SALARIES, GET_DEPENSES, GET_RECETTE, GET_SALARY_BY_ID,
+   GET_SOLDE, GET_SOLDE_BEFORE, PATCH_SALARY, POST_PAIEMENT, POST_SALARY } from '../../shared/urls/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,28 @@ export class AccountingService {
     return this.http.patch<Salary>(this.server_url + PATCH_SALARY , salary);
   }
 
-  /*getBalance(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/balance`);
-  }*/
+  getSolde(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_SOLDE);
+  }
+
+  getSoldeBeforeDepenses(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_SOLDE_BEFORE);
+  }
+
+  getDepenses(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_DEPENSES);
+  }
+
+  getALLDepenses(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_ALL_DEPENSES);
+  }
+
+  getRecettes(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_RECETTE);
+  }
+
+  getAllRecettes(): Observable<number> {
+    return this.http.get<number>(this.server_url + GET_ALL_RECETTE);
+  } 
+
 } 

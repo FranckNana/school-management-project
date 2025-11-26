@@ -18,7 +18,7 @@ export class ScheduleFormComponent implements OnInit {
   isEditMode = false;
   isLoading = false;
   classes = ['6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
-  matieres = ['Mathématiques', 'Français', 'Anglais', 'Histoire-Géographie', 'SVT', 'Physique-Chimie', 'Philosophie', 'EPS', 'Autre'] as const;
+  matieres = ['MATHEMATIQUES', 'FRANCAIS', 'ANGLAIS', 'HISTOIRE-GEOGRAPHIE', 'SVT', 'PHYSIQUE-CHIMIE', 'PHILOSOPHIE', 'EPS', 'AUTRE'] as const;
   jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'] as const;
 
 

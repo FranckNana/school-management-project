@@ -51,8 +51,15 @@
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Adresse</mat-label>
-          <textarea matInput formControlName="adresse" rows="3" placeholder="Ex: Ouagadougou, Secteur 25"></textarea>
+          <textarea matInput formControlName="adresse" rows="1" placeholder="Ex: Ouagadougou, Secteur 25"></textarea>
           <mat-error>{{getErrorMessage('adresse')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Coût de la Scolarité (en FCFA)</mat-label>
+          <input matInput formControlName="prixScholarite" placeholder="Ex: 100000" >
+          <mat-hint>Reste à payer :  <b>{{resteApayer}}</b></mat-hint>
+          <mat-error>{{getErrorMessage('prixScholarite')}}</mat-error>
         </mat-form-field>
       </div>
 

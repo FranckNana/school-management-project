@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../shared/models/student';
 import { StudentService } from '../../../core/services/student.service';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-student-details',
@@ -15,7 +17,8 @@ export class StudentDetailsComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -39,16 +42,29 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   deletePaiement(paiement:any){
-    this.studentService.deletePaiement(paiement).subscribe({
-      next: () => {
-        console.log('Paiement supprimé avec succès');
-        this.router.navigate(['/students']);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          data: {
+            title: 'Confirmer la suppression',
+            message: `Êtes-vous sûr de vouloir supprimer ce paiement de " ${paiement.montant} " de la Liste ?`,
+            confirmText: 'Supprimer',
+            cancelText: 'Annuler'
+          }
+        });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.studentService.deletePaiement(paiement).subscribe({
+          next: () => {
+            console.log('Paiement supprimé avec succès');
+            this.router.navigate(['/students']);
+          }
+          ,
+          error: (error) => {
+            console.error('Erreur lors de la suppression du paiement:', error);
+          }
+        }); 
       }
-      ,
-      error: (error) => {
-        console.error('Erreur lors de la suppression du paiement:', error);
-      }
-    }); 
+    });
   }
 
 }

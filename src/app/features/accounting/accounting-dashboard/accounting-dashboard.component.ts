@@ -18,7 +18,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AccountingDashboardComponent implements OnInit {
   recentPayments: Payment[] = [];
   recentSalaries: Salary[] = [];
-
+  solde: number = 0;
+  soldeBefore: number = 0;
+  depenses: number = 0;
+  alldepenses: number = 0;
+  recette: number = 0;
+  allRecette: number = 0;
+ 
   constructor(
     private router: Router,
     private accountingService: AccountingService,
@@ -30,12 +36,90 @@ export class AccountingDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getAllPayments();
     this.getAllSalaries();
+    this.getSolde();
+    this.getSoldeBeforeDepenses();
+    this.getDepenses();
+    this.getALLDepenses();
+    this.getRecette();
+    this.getAllRecette();
 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.getAllPayments();
         this.getAllSalaries();
+        this.getSolde();
+        this.getSoldeBeforeDepenses();
+        this.getDepenses();
+        this.getRecette();
+        this.getAllRecette()
+        this.getALLDepenses();
+    });
+  }
+
+  getSolde() {
+    this.accountingService.getSolde().subscribe({
+      next: (solde) => {
+        this.solde = solde;
+      },
+      error: (error) => {
+        console.error('Error fetching solde:', error);
+      }
+    });
+  }
+
+  getSoldeBeforeDepenses() {
+    this.accountingService.getSoldeBeforeDepenses().subscribe({
+      next: (soldeBefore) => {
+        this.soldeBefore = soldeBefore;
+      },
+      error: (error) => {
+        console.error('Error fetching solde before depenses:', error);
+      }
+    });
+  }
+
+  getDepenses() {
+    this.accountingService.getDepenses().subscribe({
+      next: (depenses) => {
+        this.depenses = depenses;
+      },
+      error: (error) => {
+        console.error('Error fetching depenses:', error);
+      }
+    });
+  }
+
+  getALLDepenses() {
+    this.accountingService.getALLDepenses().subscribe({
+      next: (alldepenses) => {
+        this.alldepenses = alldepenses;
+      },
+      error: (error) => {
+        console.error('Error fetching all depenses:', error);
+      }
+    });
+  }
+
+  getRecette() {
+    this.accountingService.getRecettes().subscribe({
+      next: (recette) => {
+        this.recette = recette;
+      },
+      error: (error) => {
+        console.error('Error fetching depenses:', error);
+      }
+    });
+  }
+
+  getAllRecette() {
+    this.accountingService.getAllRecettes().subscribe({
+      next: (allRecette) => {
+        this.allRecette = allRecette;
+      },
+      error: (error) => {
+        console.error('Error fetching all recettes:', error);
+      }
     });
   }
 
@@ -105,8 +189,13 @@ export class AccountingDashboardComponent implements OnInit {
         if (result) {
           this.accountingService.delete(salary.id).subscribe({
             next: () => {
-              //this.router.navigate(['/accounting']);
               this.recentSalaries = this.recentSalaries.filter(s => s.id !== salary.id);
+              this.getSolde();
+              this.getSoldeBeforeDepenses();
+              this.getDepenses();
+              this.getRecette();
+              this.getAllRecette()
+              this.getALLDepenses();
             },
             error: (error: HttpErrorResponse) => {
               this.errorService.handleError(error);

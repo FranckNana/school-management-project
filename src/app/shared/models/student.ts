@@ -11,6 +11,8 @@ export interface Student {
   notes: Note[];
   presences: Presence[];
   paiements: Paiement[];
+  prixScholarite: number;
+  resteApayer: number;
 }
 
 export interface Note {

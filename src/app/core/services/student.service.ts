@@ -15,6 +15,7 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   create(student: Omit<Student, 'id'>): Observable<Student> {
+    student.resteApayer = student.prixScholarite;
     return this.http.post<Student>(this.server_url + POST_STUDENT, student);
   }
 
