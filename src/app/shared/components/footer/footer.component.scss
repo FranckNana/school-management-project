@@ -111,3 +111,15 @@
 footer, main {
   position: static !important;
 }
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0;
+}
+
+.contact-row mat-icon {
+  font-size: 17px;
+}
+

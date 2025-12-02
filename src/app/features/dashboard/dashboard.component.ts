@@ -31,9 +31,9 @@ import { MetricsService } from '../../core/services/metrics.service';
           stagger(100, [
             animate('0.6s cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'translateY(0)' }))
           ])
-        ])
+        ], { optional: true })
       ])
-    ]),
+    ]), 
     trigger('tableAnimation', [
       transition(':enter', [
         query('tr', [
@@ -41,7 +41,7 @@ import { MetricsService } from '../../core/services/metrics.service';
           stagger(50, [
             animate('0.5s ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
           ])
-        ])
+        ],  { optional: true })
       ])
     ]),
     trigger('notificationAnimation', [
@@ -51,7 +51,7 @@ import { MetricsService } from '../../core/services/metrics.service';
           stagger(100, [
             animate('0.5s ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
           ])
-        ])
+        ],  { optional: true })
       ])
     ])
   ]
@@ -62,6 +62,8 @@ export class DashboardComponent implements OnInit {
 
   notifications: Notification[] = [];
   metrics: Metrics | undefined;
+
+  nbCoursDispensesActuellement = 0;
 
   constructor(
     private router: Router,
@@ -79,6 +81,20 @@ export class DashboardComponent implements OnInit {
       this.todaySchedule = schedules.filter(schedule =>
         schedule.jour.toLowerCase() === scheduleDateDay.toLowerCase()
       );
+      const now = new Date();
+      
+      this.nbCoursDispensesActuellement = this.todaySchedule.filter(item => {
+        const [startHour, startMinute] = item.heureDebut.split(':').map(Number);
+        const [endHour, endMinute] = item.heureFin.split(':').map(Number);
+
+        const startTime = new Date();
+        startTime.setHours(startHour, startMinute, 0);
+
+        const endTime = new Date();
+        endTime.setHours(endHour, endMinute, 0);
+
+        return now >= startTime && now <= endTime;
+      }).length;
     });
 
     this.notificationService.getAll().subscribe(notifications => {
@@ -88,6 +104,7 @@ export class DashboardComponent implements OnInit {
     this.metricsService.getMetrics().subscribe({
       next: (data: Metrics) => {
         this.metrics = data;
+        this.metrics.comparedStudent = this.metrics.comparedStudent < 0 ? Math.abs(this.metrics.comparedStudent) : this.metrics.comparedStudent;
       },
       error: (error: any) => {
         this.errorService.handleError(error);

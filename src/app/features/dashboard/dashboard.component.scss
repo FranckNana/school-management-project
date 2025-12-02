@@ -1,6 +1,6 @@
 
 .dashboard-container {
-  padding: 1.5rem;
+  padding: 0.1rem;
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -11,9 +11,9 @@
 
 .dashboard-header {
   background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   position: relative;
   overflow: hidden;
   box-shadow: 
@@ -89,10 +89,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   .stats-card {
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     overflow: hidden;
     transition: all 0.3s ease;
     position: relative;
@@ -102,7 +102,7 @@
 
       .stats-card-bg {
         transform: scale(1.1);
-        opacity: 0.15;
+        opacity: 0.2;
       }
     }
 
@@ -214,10 +214,10 @@
 
 .schedule-card, .notifications-card {
   height: 100%;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   background: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.16);
   transition: transform 0.3s ease;
   min-height: 500px;         /* ajuste cette valeur selon la hauteur d'une rangée *******************************************/
 
@@ -316,7 +316,7 @@
       align-items: flex-start;
       gap: 1rem;
       padding: 0.75rem;
-      border-radius: 0.75rem;
+      border-radius: 0.5rem;
       transition: background-color 0.2s ease;
 
       &:hover {
@@ -423,7 +423,7 @@
 
 .notifications-container {
   background: #fff;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 1rem 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   min-height: 300px;
@@ -454,7 +454,7 @@
   align-items: flex-start;
   gap: 0.8rem;
   padding: 0.8rem 1rem;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   background: #f9fafb;
   margin-bottom: 0.5rem;
   transition: all 0.3s ease;
@@ -568,7 +568,7 @@
 }
 
 .notifications-card {
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   background: white;
   display: flex;
@@ -685,12 +685,12 @@
 .modern-schedule-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.5rem 0;
 }
 
 .course-card {
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   color: white;
   padding: 1rem;
   display: flex;

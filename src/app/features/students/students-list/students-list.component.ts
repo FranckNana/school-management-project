@@ -16,7 +16,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
   styleUrls: ['./students-list.component.scss']
 })
 export class StudentsListComponent implements OnInit {
-  displayedColumns: string[] = ['matricule', 'nom', 'classe', 'parent', 'telephone-parent', 'actions'];
+  displayedColumns: string[] = ['matricule', 'nom', 'classe', 'anneeScolaire', "resteApayer", 'parent', 'telephone-parent', 'actions'];
   dataSource: MatTableDataSource<Student>;
   classes = ['6ème A', '6ème B', '5ème A', '5ème B', '4ème A', '4ème B', '3ème A', '3ème B'];
   

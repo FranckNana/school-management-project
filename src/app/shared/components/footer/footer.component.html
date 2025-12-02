@@ -11,31 +11,73 @@
     <div class="footer-links">
       <div class="links-group">
         <h3>Navigation</h3>
-        <a routerLink="/dashboard">Tableau de bord</a>
-        <a routerLink="/personnel">Personnel</a>
-        <a routerLink="/students">Élèves</a>
-        <a routerLink="/schedule">Emplois du temps</a>
-        <a routerLink="/accounting">Comptabilité</a>
+
+        <p class="contact-row">
+          <mat-icon>dashboard</mat-icon>
+          <a routerLink="/dashboard" class="nav-text">Tableau de bord</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>group</mat-icon>
+          <a routerLink="/personnel" class="nav-text">Personnel</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>school</mat-icon>
+          <a routerLink="/students" class="nav-text">Élèves</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>calendar_today</mat-icon>
+          <a routerLink="/schedule" class="nav-text">Emplois du temps</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>account_balance_wallet</mat-icon>
+          <a routerLink="/accounting" class="nav-text">Comptabilité</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>assignment</mat-icon>
+          <a routerLink="/bulletins" class="nav-text">Bulletins</a>
+        </p>
+      </div>
+
+
+      <div class="links-group">
+        <h3>Contact</h3>
+        <p class="contact-row">
+          <mat-icon>phone</mat-icon>
+          <span class="nav-text"> + 226 76 67 88 34</span>
+        </p>
+        <p class="contact-row">
+          <mat-icon>email</mat-icon>
+          <span class="nav-text"> contact&#64;casjs.com</span>
+        </p>
+        <p class="contact-row">
+          <mat-icon>schedule</mat-icon>
+          <span class="nav-text"> du Lundi - Vendredi: 7h30 - 17h</span>
+        </p>
       </div>
 
       <div class="links-group">
-        <h3>Support</h3>
-        <a href="#">Documentation</a>
-        <!--a href="#">Guide d'utilisation</a>
-        <a href="#">FAQ</a-->
-        <a href="#">Contact</a>
+        <h3>Documentations</h3>
+
+        <p class="contact-row">
+          <mat-icon>description</mat-icon>
+          <a href="#">Rapports</a>
+        </p>
+
+        <p class="contact-row">
+          <mat-icon>archive</mat-icon>
+          <a href="#">Archives</a>
+        </p>
       </div>
 
-      <div class="links-group">
-        <h3>Légal</h3>
-        <a href="#">Conditions d'utilisation</a>
-        <a href="#">Politique de confidentialité</a>
-        <a href="#">Mentions légales</a>
-      </div>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; {{currentYear}} Collège Manager. Tous droits réservés.</p>
+    <p>&copy; {{currentYear}} Collège de l'Avenir Saint Judicaël de Sonré (CASJS). Tous droits réservés.</p>
   </div>
 </footer>

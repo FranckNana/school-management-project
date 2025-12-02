@@ -28,7 +28,7 @@
           <mat-label>Année scolaire</mat-label>
           <input matInput formControlName="annee" type="number">
         </mat-form-field>
-      </div>
+      </div> 
 
       <div formArrayName="notes" class="notes-container">
         <h3>Notes par matière</h3>
@@ -37,7 +37,7 @@
              [formGroupName]="i" 
              class="note-item">
           <div class="note-grid">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="isOptional(noteControl)">
               <mat-label>Matière</mat-label>
               <input matInput formControlName="matiere" readonly>
             </mat-form-field>
@@ -55,16 +55,26 @@
           </div>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Appréciation</mat-label>
-            <textarea matInput formControlName="appreciation" rows="2"></textarea>
+            <mat-label>Appréciation générale</mat-label>
+            <mat-select formControlName="appreciation">
+              <mat-option *ngFor="let appr of appreciationsList" [value]="appr">
+                {{ appr }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
+
         </div>
       </div>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Appréciation générale</mat-label>
-        <textarea matInput formControlName="appreciation" rows="3"></textarea>
+        <mat-select formControlName="appreciation">
+          <mat-option *ngFor="let appr of appreciationsList" [value]="appr">
+            {{ appr }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+
 
       <div class="moyenne-container">
         <h3>Moyenne générale: {{calculateMoyenne() | number:'1.2-2'}}/20</h3>

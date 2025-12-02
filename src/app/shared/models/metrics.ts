@@ -20,4 +20,6 @@ export interface Metrics {
   todaysClassesCount: number;
   year: number;
   month: Month;
+  comparedStudent: number;
+  comparedTeacher: number;
 }

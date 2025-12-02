@@ -24,6 +24,15 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+
+<!--         <mat-form-field>
+          <mat-label>Filtrer par année</mat-label>
+          <mat-select [(value)]="selectedAnnee" (selectionChange)="applyFilters()">
+            <mat-option *ngFor="let annee of annees" [value]="annee">
+              {{annee}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
       </div>
     </div>
 
@@ -42,6 +51,16 @@
         <ng-container matColumnDef="classe">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Classe</th>
           <td mat-cell *matCellDef="let element">{{element.classe}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="anneeScolaire">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Année scolaire</th>
+          <td mat-cell *matCellDef="let element">{{element.anneeScolaire}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="resteApayer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Impayés</th>
+          <td mat-cell *matCellDef="let element">{{element.resteApayer}}</td>
         </ng-container>
   
         <ng-container matColumnDef="parent">

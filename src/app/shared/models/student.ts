@@ -13,6 +13,7 @@ export interface Student {
   paiements: Paiement[];
   prixScholarite: number;
   resteApayer: number;
+  anneeScolaire: string;
 }
 
 export interface Note {

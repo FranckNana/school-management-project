@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BulletinService } from '../../../core/services/bulletin.service';
 import { ErrorService } from '../../../core/services/error.service';
 import { Bulletin } from '../../../shared/models/bulletin';
+import { StudentService } from '../../../core/services/student.service';
 
 @Component({
   selector: 'app-bulletin-view',
@@ -12,12 +13,14 @@ import { Bulletin } from '../../../shared/models/bulletin';
 export class BulletinViewComponent implements OnInit {
   bulletin: Bulletin | null = null;
   isLoading = false;
+  nbStudents : number = 0;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private bulletinService: BulletinService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private studentService: StudentService
   ) {}
 
   ngOnInit() {
@@ -33,6 +36,14 @@ export class BulletinViewComponent implements OnInit {
       next: (bulletin) => {
         this.bulletin = bulletin;
         this.isLoading = false;
+        this.studentService.getAll().subscribe({
+          next: (students) => {
+            this.nbStudents = students.filter(student => student.classe === this.bulletin?.classe).length;
+          },
+          error: (error) => {
+            this.errorService.handleError(error);
+          }
+        });
       },
       error: (error) => {
         this.errorService.handleError(error);

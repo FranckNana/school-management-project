@@ -23,10 +23,21 @@ export class BulletinFormComponent implements OnInit {
     'Histoire-Géographie',
     'SVT',
     'Physique-Chimie',
-    'PHILOSOPHIE',
+    'Philosophie',
     'EPS',
-    'AUTRE'
+    'Autre'
   ];
+  
+  appreciationsList: string[] = [
+    'Excellent travail',
+    'Très bon travail',
+    'Bon travail',
+    'Travail satisfaisant',
+    'Doit faire plus d’efforts',
+    'Résultats insuffisants',
+    'Travail non satisfaisant'
+  ];
+  
   trimestres = [1, 2, 3];
 
   constructor(
@@ -109,10 +120,21 @@ export class BulletinFormComponent implements OnInit {
   }
 
   private createNoteFormGroup(note: any) {
+    const isOptional = note.matiere === 'EPS' || note.matiere === 'AUTRE';
+
     return this.fb.group({
-      matiere: [note.matiere, Validators.required],
-      note: [note.note, [Validators.required, Validators.min(0), Validators.max(20)]],
-      coefficient: [note.coefficient, [Validators.required, Validators.min(1)]],
+      matiere: [
+        note.matiere, 
+        Validators.required
+      ],
+      note: [
+        note.note, 
+        isOptional ? [] : [Validators.required, Validators.min(0), Validators.max(20)]
+      ],
+      coefficient: [
+        note.coefficient, 
+        isOptional ? [] : [Validators.required, Validators.min(1)]
+      ],
       appreciation: [note.appreciation]
     });
   }
@@ -122,13 +144,24 @@ export class BulletinFormComponent implements OnInit {
     let totalCoefficients = 0;
 
     this.notesArray.controls.forEach(control => {
-      const note = control.get('note')?.value || 0;
-      const coefficient = control.get('coefficient')?.value || 1;
+      const note = control.get('note')?.value;
+      const coefficient = control.get('coefficient')?.value;
+
+      // Ignore les matières sans note ou sans coefficient
+      if (note === null || note === '' || coefficient === null || coefficient === '') {
+        return;
+      }
+
       totalPoints += note * coefficient;
       totalCoefficients += coefficient;
     });
 
     return totalCoefficients > 0 ? totalPoints / totalCoefficients : 0;
+  }
+
+  isOptional(control: any): boolean {
+    const matiere = control.get('matiere')?.value;
+    return matiere === 'EPS' || matiere === 'AUTRE';
   }
 
   onSubmit() {

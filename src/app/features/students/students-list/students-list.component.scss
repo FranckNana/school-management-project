@@ -14,3 +14,13 @@ table {
   margin: 0 -16px;
   padding: 0 16px;
 }
+
+.additional-filters {
+  display: flex;
+  gap: 16px; /* espace entre les champs */
+  align-items: center;
+}
+
+.additional-filters mat-form-field {
+  width: 200px; /* ajuste selon ton design */
+}

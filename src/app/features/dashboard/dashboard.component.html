@@ -28,9 +28,17 @@
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/college-students-concept-illustration_114360-10205.jpg?w=500')"></div>
       <mat-card-content>
         <div class="icon-container"><mat-icon>school</mat-icon></div>
-        <div class="stats-info"><h2>{{metrics?.totalStudents}}</h2><p>Élève(s) inscrit(s)</p></div>
+        <div class="stats-info"><h2>{{metrics?.totalStudents }}</h2><p>Élève(s) inscrit(s)</p></div>
         <div class="stats-footer">
-          <span class="trend positive"><mat-icon>trending_up</mat-icon> +5% ce mois</span>
+          <span class="trend positive" *ngIf="(metrics?.comparedStudent ?? 0) > 0">
+            <mat-icon>trending_up</mat-icon>{{metrics?.comparedStudent ?? 0}} Etudent(s) de plus que l'an passé
+          </span>
+          <span class="trend neutral" *ngIf="(metrics?.comparedStudent ?? 0) === 0">
+            <mat-icon>trending_flat</mat-icon> Stable
+          </span>
+          <span class="trend negative" *ngIf="(metrics?.comparedStudent ?? 0) < 0">
+            <mat-icon>trending_down</mat-icon> {{ metrics?.comparedStudent ?? 0 }} Etudiant(s) de moins que l'an passé
+          </span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -39,9 +47,14 @@
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/teacher-concept-illustration_114360-1638.jpg?w=500')"></div>
       <mat-card-content>
         <div class="icon-container"><mat-icon>people</mat-icon></div>
-        <div class="stats-info"><h2>{{metrics?.totalTeachers}}</h2><p>Enseignant(s)</p></div>
+        <div class="stats-info"><h2>{{metrics?.totalTeachers ?? 0 }}</h2><p>Enseignant(s)</p></div>
         <div class="stats-footer">
-          <span class="trend neutral"><mat-icon>trending_flat</mat-icon> Stable</span>
+          <span class="trend positive" *ngIf="(metrics?.comparedTeacher ?? 0) > 0">
+            <mat-icon>trending_up</mat-icon> A la hausse
+          </span>
+          <span class="trend neutral" *ngIf="(metrics?.comparedTeacher ?? 0 )=== 0">
+            <mat-icon>trending_flat</mat-icon> Stable
+          </span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -50,9 +63,10 @@
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/payment-information-concept-illustration_114360-5352.jpg?w=500')"></div>
       <mat-card-content>
         <div class="icon-container"><mat-icon>payments</mat-icon></div>
-        <div class="stats-info"><h2>{{metrics?.paymentComplianceRate | number:'1.2-2'}}%</h2><p>Paiements à jour</p></div>
+        <div class="stats-info"><h2>{{metrics?.paymentComplianceRate ?? 0 | number:'1.2-2'}}%</h2><p>Paiements à jour</p></div>
         <div class="stats-footer">
-          <span class="trend positive"><mat-icon>trending_up</mat-icon> +10% ce mois</span>
+          <!-- <span class="trend positive"><mat-icon>trending_up</mat-icon> +10% ce mois</span> -->
+           <span class="trend neutral"><mat-icon>trending_flat</mat-icon> Stable</span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -61,9 +75,9 @@
       <div class="stats-card-bg" style="background-image: url('https://img.freepik.com/free-vector/schedule-concept-illustration_114360-1531.jpg?w=500')"></div>
       <mat-card-content>
         <div class="icon-container"><mat-icon>event</mat-icon></div>
-        <div class="stats-info"><h2>{{metrics?.todaysClassesCount}}</h2><p>Cours aujourd’hui</p></div>
+        <div class="stats-info"><h2>{{metrics?.todaysClassesCount ?? 0}}</h2><p>Cours aujourd’hui</p></div>
         <div class="stats-footer">
-          <span class="trend neutral"><mat-icon>schedule</mat-icon> 4 en cours</span>
+          <span class="trend neutral"><mat-icon>schedule</mat-icon> {{nbCoursDispensesActuellement}} en cours</span>
         </div>
       </mat-card-content>
     </mat-card>

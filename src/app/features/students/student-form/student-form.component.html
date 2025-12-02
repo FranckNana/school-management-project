@@ -37,7 +37,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Nom du parent</mat-label>
+          <mat-label>Nom et Prénom(s) du parent</mat-label>
           <input matInput formControlName="nomParent" placeholder="Ex: Sawadogo Issouf">
           <mat-error>{{getErrorMessage('nomParent')}}</mat-error>
         </mat-form-field>
@@ -60,6 +60,12 @@
           <input matInput formControlName="prixScholarite" placeholder="Ex: 100000" >
           <mat-hint>Reste à payer :  <b>{{resteApayer}}</b></mat-hint>
           <mat-error>{{getErrorMessage('prixScholarite')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Année scolaire</mat-label>
+          <input matInput formControlName="anneeScolaire" placeholder="Ex: 2025 - 2026" (input)="autoCompleteYear()">
+          <mat-hint>Format automatique après saisie de l'année</mat-hint>
         </mat-form-field>
       </div>
 

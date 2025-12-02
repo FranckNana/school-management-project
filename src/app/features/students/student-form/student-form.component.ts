@@ -34,7 +34,8 @@ export class StudentFormComponent implements OnInit {
       nomParent: ['', [Validators.required, Validators.minLength(2)]],
       telephoneParent: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
       adresse: ['', [Validators.required, Validators.minLength(5)]],
-      prixScholarite: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]]
+      prixScholarite: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+      anneeScolaire: ['', [Validators.required, Validators.pattern(/^\d{4}\s*-\s*\d{4}$/)]]
     });
   } 
 
@@ -131,7 +132,22 @@ export class StudentFormComponent implements OnInit {
     if (errors['pattern']) return 'Numéro de téléphone invalide (8 chiffres)';
     if (errors['invalidAge']) return 'L\'âge doit être entre 10 et 30 ans';
     if (errors['invalidPrix']) return 'Le prix doit être un nombre positif';
+    if (errors['anneeScolaire']) return 'L\'année scolaire doit être au format "YYYY - YYYY"';
 
     return 'Champ invalide';
+  }
+
+  autoCompleteYear() {
+    const control = this.studentForm.get('anneeScolaire');
+    const value = control?.value;
+
+    // Si l'utilisateur a entré exactement 4 chiffres
+    if (/^\d{4}$/.test(value)) {
+      const debut = Number(value);
+      const fin = debut + 1;
+      const formatted = `${debut} - ${fin}`;
+
+      control?.setValue(formatted, { emitEvent: false });
+    }
   }
 }
